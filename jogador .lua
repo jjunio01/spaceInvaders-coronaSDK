@@ -1,0 +1,10 @@
+jogador  = {
+	
+}
+
+
+
+
+
+
+return jogador
