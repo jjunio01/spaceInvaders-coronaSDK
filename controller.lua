@@ -14,21 +14,37 @@ function controller:play()
 	self.viewJogador:play(self)
 end
 
-function controller.movimentacao()
-	
+
+function controller:movimentaNave()
 	local direita = display.contentWidth - 30
 	local esquerda = 30
-	local posicaoNave = controller.modelJogador.imagem.x
-	local parada = false
+	local movimento = "direita"
 
-	while parada == false do
-
-		if posicaoNave < direita then		
-			controller.viewJogador.moverNaveDireita()
-		else
-			print("oi")
-		end	
+	if self.viewJogador.modelJogador.imagem.x == direita then
+		movimento = "esquerda"
+	elseif self.viewJogador.modelJogador.imagem.x == 30 then
+		movimento = "direita"
 	end
+
+	if movimento == "direita" then
+		self:movimentarParaDireita()
+	end
+
+	if movimento == "esquerda" then
+		self:movimentarParaEsquerda()
+	end
+end
+
+
+function controller:movimentarParaDireita()
+
+	self.viewJogador.moverNaveDireita()
+
+end
+
+function controller:movimentarParaEsquerda()
+
+	self.viewJogador.moverNaveEsquerda()
 end
 
 

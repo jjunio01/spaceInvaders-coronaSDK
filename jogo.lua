@@ -20,12 +20,17 @@ function jogo:play()
 end
 
 
-function mover()
+function timeMovimentacao(event)
 
-	timer.performWithDelay(500, jogo.controllerJogador.movimentacao, 0)
-
-	
+	if event.phase == "began" then
+		timer.performWithDelay( 500, movimentarNave,0)
+	end	
 end
+
+function movimentarNave()
+	jogo.controllerJogador:movimentaNave()
+end
+
 
 local button = widget.newButton(
     {
@@ -34,9 +39,7 @@ local button = widget.newButton(
         id = "button1",
         label = "PLAY",
         shape = "rect",
-        onEvent = mover
+        onEvent = timeMovimentacao
 })
-
-
 
 return jogo

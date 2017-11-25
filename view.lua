@@ -16,10 +16,15 @@ end
 
 function view.moverNaveDireita()
 	
-	view.modelJogador.imagem.x = view.modelJogador.imagem.x + 5
+	view.modelJogador.imagem.x = view.modelJogador.imagem.x + 10
 
 end
 
+function view.moverNaveEsquerda()
+	
+	view.modelJogador.imagem.x = view.modelJogador.imagem.x - 10
+
+end
 
 
 function view:desenharNave()
