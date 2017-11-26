@@ -43,6 +43,15 @@ function controller:movimentaNave()
 	end
 end
 
+function controller:verificarLimiteInvaders(invaders)
+	
+	if invaders < limiteDireita then
+		return true
+	else
+		return false
+	end
+end
+
 function controller:movimentarInvadersParaDireita()
 	self.viewJogador:moverInvadersDireita()
 end
@@ -52,8 +61,32 @@ function controller:movimentarInvadersParaEsquerda()
 end
 
 function controller:movimentarInaders()
-		
-	self:movimentarInvadersParaDireita()
+	local limiteDireita = display.contentWidth - 25
+	local invadersDireita = self.viewJogador.modelJogador.tabelaInvaders[1][10].x
+	local limiteEsquerda = 35
+	local invadersEsquerda = self.viewJogador.modelJogador.tabelaInvaders[1][1].x
+
+	if movimentoDireita == true then
+
+		if invadersDireita < limiteDireita then
+			self.viewJogador:moverInvadersDireita()
+		else
+			movimentoDireita = false
+			movimentoEsquerda = true
+		end
+	end
+
+	if movimentoEsquerda == true then
+
+		if invadersEsquerda >= limiteEsquerda then
+			self.viewJogador:moverInvadersEsquerda()
+		else
+			movimentoDireita = true
+			movimentoEsquerda = false
+		end
+	end
+
+
 
 end
 
