@@ -24,7 +24,14 @@ function timeMovimentacao(event)
 
 	if event.phase == "began" then
 		timer.performWithDelay( 500, movimentarNave,0)
-	end	
+
+	elseif event.phase == "ended" then
+		timer.performWithDelay(500, atirar, 0)
+	end
+end
+
+function atirar()
+	jogo.controllerJogador:atirar()
 end
 
 function movimentarNave()

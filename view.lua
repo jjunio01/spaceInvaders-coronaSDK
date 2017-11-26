@@ -45,6 +45,14 @@ function view:moverInvadersEsquerda()
 	end
 end
 
+function view:moverInvadersParaBaixo()
+	for linha=1,3 do
+		for coluna=1,10 do
+			view.modelJogador.tabelaInvaders[linha][coluna].y = view.modelJogador.tabelaInvaders[linha][coluna].y + 10
+		end
+	end
+end
+
 function view:desenharInvaders()
 
 	self.modelJogador:inicializarInvaders()
@@ -68,7 +76,7 @@ function view:desenharNave()
 
 	self.modelJogador:renderizar()
 	self.modelJogador.imagem.x = display.contentWidth / 2
-	self.modelJogador.imagem.y = display.contentHeight / 2
+	self.modelJogador.imagem.y = display.contentHeight  - 100
 	
 end
 
