@@ -1,5 +1,7 @@
 local view = require("view")
 local model = require("nave")
+local movimentoNaveDireita = true
+local movimentoNaveEsquerda = false
 local movimentoDireita = true
 local movimentoEsquerda = false
 
@@ -22,23 +24,23 @@ function controller:movimentaNave()
 	local nave = self.viewJogador.modelJogador.imagem.x
 	local limiteEsquerda = 35
 
-	if movimentoDireita == true then
+	if movimentoNaveDireita == true then
 
 		if nave < limiteDireita then
 			self:movimentarParaDireita()
 		else
-			movimentoDireita = false
-			movimentoEsquerda = true
+			movimentoNaveDireita = false
+			movimentoNaveEsquerda = true
 		end
 	end
 
-	if movimentoEsquerda == true then
+	if movimentoNaveEsquerda == true then
 
 		if nave >= limiteEsquerda then
 			self:movimentarParaEsquerda()
 		else
-			movimentoDireita = true
-			movimentoEsquerda = false
+			movimentoNaveDireita = true
+			movimentoNaveEsquerda = false
 		end
 	end
 end
@@ -85,8 +87,6 @@ function controller:movimentarInaders()
 			movimentoEsquerda = false
 		end
 	end
-
-
 
 end
 
