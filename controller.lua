@@ -1,5 +1,7 @@
 local view = require("view")
 local model = require("nave")
+local movimentoDireta = true
+local movimentoEsquerda = false
 
 controller = {	
 	
@@ -14,24 +16,30 @@ function controller:play()
 	self.viewJogador:play(self)
 end
 
-
 function controller:movimentaNave()
-	local direita = display.contentWidth - 30
-	local esquerda = 30
-	local movimento = "direita"
 
-	if self.viewJogador.modelJogador.imagem.x == direita then
-		movimento = "esquerda"
-	elseif self.viewJogador.modelJogador.imagem.x == 30 then
-		movimento = "direita"
+	local limiteDireita = display.contentWidth - 30
+	local nave = self.viewJogador.modelJogador.imagem.x
+	local limiteEsquerda = 30
+
+	if movimentoDireta == true then
+
+		if nave < limiteDireita then
+			self:movimentarParaDireita()
+		else
+			movimentoDireta = false
+			movimentoEsquerda = true
+		end
 	end
 
-	if movimento == "direita" then
-		self:movimentarParaDireita()
-	end
+	if movimentoEsquerda == true then
 
-	if movimento == "esquerda" then
-		self:movimentarParaEsquerda()
+		if nave >= limiteEsquerda then
+			self:movimentarParaEsquerda()
+		else
+			movimentoDireta = true
+			movimentoEsquerda = false
+		end
 	end
 end
 
