@@ -31,7 +31,6 @@ function view:moverInvadersDireita()
 	
 	for linha=1,3 do
 		for coluna=1,10 do
-			print()
 			view.modelJogador.tabelaInvaders[linha][coluna].x = view.modelJogador.tabelaInvaders[linha][coluna].x + 10
 		end
 	end

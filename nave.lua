@@ -1,4 +1,3 @@
-local tabelaNaves = {}
 
 nave = {
 	vidas = 3,
@@ -6,16 +5,10 @@ nave = {
 	tabelaInvaders = {}
 }
 
-function nave:play()
-	self:inicializarInvaders()
-end
-
-
 function nave:renderizar()
 	
 	self.imagem.width= 20
 	self.imagem.height = 20
-
 end
 
 function nave:inicializarInvaders()

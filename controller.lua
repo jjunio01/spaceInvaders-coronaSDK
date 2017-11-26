@@ -14,7 +14,6 @@ function controller:play()
 	self.viewJogador = view
 	self.modelJogador = model	
 	self.viewJogador:play(self)
-	self.modelJogador:play()
 end
 
 function controller:movimentaNave()
