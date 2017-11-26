@@ -29,6 +29,7 @@ end
 
 function movimentarNave()
 	jogo.controllerJogador:movimentaNave()
+	jogo.controllerJogador:movimentarInaders()
 end
 
 
