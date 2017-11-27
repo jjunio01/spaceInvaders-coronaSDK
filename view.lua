@@ -1,4 +1,7 @@
 local model = require("nave")
+local tiros = {}
+local physics = require "physics"
+physics.start()
 
 view = {
 
@@ -80,9 +83,10 @@ function view:desenharNave()
 	
 end
 
-
-
-
-
+function view:novoTiro()
+	table.insert(tiros,display.newRect(display.contentWidth / 2,display.contentHeight  - 100, 5,5))	
+	physics.addBody( tiros[#tiros], "dynamic")
+	physics.setGravity( 0, -6 )
+end
 
 return view
