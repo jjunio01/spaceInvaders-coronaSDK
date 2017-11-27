@@ -24,21 +24,19 @@ function timeMovimentacao(event)
 
 	if event.phase == "began" then
 		timer.performWithDelay( 500, movimentarNave,0)
-
-	elseif event.phase == "ended" then
-		timer.performWithDelay(500, atirar, 0)
 	end
 end
 
-function atirar()
-	jogo.controllerJogador:atirar()
+function atirar(event)
+	if event.phase == "began" then
+		jogo.controllerJogador:atirar()
+	end
 end
 
 function movimentarNave()
 	jogo.controllerJogador:movimentaNave()
 	jogo.controllerJogador:movimentarInaders()
-end
-
+end	
 
 local button = widget.newButton(
     {
@@ -47,7 +45,22 @@ local button = widget.newButton(
         id = "button1",
         label = "PLAY",
         shape = "rect",
-        onEvent = timeMovimentacao
+        onEvent = timeMovimentacao,
+     	width = 60,
+		height = 60
+})
+
+
+local button = widget.newButton(
+    {
+        left = 160,
+        top = 400,
+        id = "button1",
+        label = "TIRO",
+        shape = "rect",
+        onEvent = atirar,
+     	width = 60,
+		height = 60
 })
 
 return jogo

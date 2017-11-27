@@ -4,7 +4,7 @@ local movimentoNaveDireita = true
 local movimentoNaveEsquerda = false
 local movimentoDireita = true
 local movimentoEsquerda = false
-local tiro = display.newRect(display.contentWidth / 2,display.contentHeight  - 100, 5,5)
+local tiros = {}
 
 controller = {	
 	
@@ -97,8 +97,35 @@ function controller:movimentarInaders()
 
 end
 
+function controller:novoTiro()
+	
+	table.insert(tiros,display.newRect(display.contentWidth / 2,display.contentHeight  - 100, 5,5))
+	return #tiros
+end
+
+
+
+
+function velocidadeTiro(numero)
+
+	tiros[numero].y = tiros[numero].y - 30
+	print(tiros[numero])
+end
+
+function controller:movimentarTiro(numero)
+	
+	local function listener()
+		return velocidadeTiro(numero)
+	end
+	local auxiliar = timer.performWithDelay( 500, listener ,0)
+
+end
+
 function controller:atirar()
-	tiro.y = tiro.y - 30
+	self:movimentarTiro(
+		self:novoTiro()
+	)
+	
 end
 
 function controller:movimentarParaDireita()
