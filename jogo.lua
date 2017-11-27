@@ -11,7 +11,6 @@ jogo = {
 
 }
 
-
 function jogo:play()
 	self.viewJogador = view
 	self.modelJogador = model

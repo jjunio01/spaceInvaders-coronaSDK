@@ -84,7 +84,9 @@ function view:desenharNave()
 end
 
 function view:novoTiro()
-	table.insert(tiros,display.newRect(display.contentWidth / 2,display.contentHeight  - 100, 5,5))	
+	local x = view.modelJogador.imagem.x
+	local y = view.modelJogador.imagem.y
+	table.insert(tiros,display.newRect(x,y, 5,5))	
 	physics.addBody( tiros[#tiros], "dynamic")
 	physics.setGravity( 0, -6 )
 end
