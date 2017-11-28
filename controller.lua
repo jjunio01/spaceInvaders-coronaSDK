@@ -66,6 +66,16 @@ function controller:descerInvaders()
 	self.viewJogador:moverInvadersParaBaixo()
 end
 
+function controller:invadersLimiteDireita()
+	for linha=1,3 do
+		for coluna=1,10 do
+			if self.viewJogador.modelJogador.tabelaInvaders[1][10].x ~= nil then
+				return self.viewJogador.modelJogador.tabelaInvaders[1][10].x
+			end
+		end
+	end
+end
+
 function controller:movimentarInaders()
 	local limiteDireita = display.contentWidth - 25
 	local invadersDireita = self.viewJogador.modelJogador.tabelaInvaders[1][10].x
@@ -111,6 +121,20 @@ function controller:movimentarParaEsquerda()
 
 	self.viewJogador.moverNaveEsquerda()
 end
+
+function controller.desativarInvaders(event)
+	timer.performWithDelay(1, event.target:removeSelf())
+end
+
+function controller:destruirInvaders(linha, coluna)
+	
+end
+
+function controller.desativarTiro(event)
+	timer.performWithDelay(1, event.target:removeSelf())
+end
+
+
 
 
 

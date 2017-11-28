@@ -18,6 +18,16 @@ function view:play(controller)
 	self:desenharInvaders()
 end
 
+function view:verificarInvaders(linha, coluna)
+
+	if view.modelJogador.tabelaInvaders[linha][coluna].x ~= nil 
+		and view.modelJogador.tabelaInvaders[linha][coluna].y ~= nil then
+		return true
+	else
+		return false
+	end
+end
+
 function view.moverNaveDireita()
 	
 	view.modelJogador.imagem.x = view.modelJogador.imagem.x + 10
@@ -34,7 +44,9 @@ function view:moverInvadersDireita()
 	
 	for linha=1,3 do
 		for coluna=1,10 do
-			view.modelJogador.tabelaInvaders[linha][coluna].x = view.modelJogador.tabelaInvaders[linha][coluna].x + 10
+			if self:verificarInvaders(linha, coluna) then
+				self.modelJogador.tabelaInvaders[linha][coluna].x = view.modelJogador.tabelaInvaders[linha][coluna].x + 10
+			end
 		end
 	end
 end
@@ -43,7 +55,9 @@ function view:moverInvadersEsquerda()
 
 	for linha=1,3 do
 		for coluna=1,10 do
-			view.modelJogador.tabelaInvaders[linha][coluna].x = view.modelJogador.tabelaInvaders[linha][coluna].x - 10
+			if self:verificarInvaders(linha, coluna) then
+				self.modelJogador.tabelaInvaders[linha][coluna].x = view.modelJogador.tabelaInvaders[linha][coluna].x - 10
+			end
 		end
 	end
 end
@@ -51,7 +65,9 @@ end
 function view:moverInvadersParaBaixo()
 	for linha=1,3 do
 		for coluna=1,10 do
-			view.modelJogador.tabelaInvaders[linha][coluna].y = view.modelJogador.tabelaInvaders[linha][coluna].y + 10
+			if self:verificarInvaders(linha, coluna) then
+				view.modelJogador.tabelaInvaders[linha][coluna].y = view.modelJogador.tabelaInvaders[linha][coluna].y + 10
+			end
 		end
 	end
 end
@@ -89,6 +105,7 @@ function view:novoTiro()
 	table.insert(tiros,display.newRect(x,y, 5,5))	
 	physics.addBody( tiros[#tiros], "dynamic")
 	physics.setGravity( 0, -6 )
+	tiros[#tiros]:addEventListener( "collision", controller.desativarTiro )
 end
 
 return view

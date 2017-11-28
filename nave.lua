@@ -22,6 +22,7 @@ function nave:inicializarInvaders()
 			self.tabelaInvaders[linha][coluna].width = 20
 			self.tabelaInvaders[linha][coluna].height = 20
 			physics.addBody( self.tabelaInvaders[linha][coluna], "static")
+			self.tabelaInvaders[linha][coluna]:addEventListener( "collision", controller.desativarInvaders )				
 		end	
 	end
 end
