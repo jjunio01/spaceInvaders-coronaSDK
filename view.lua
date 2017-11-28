@@ -66,7 +66,7 @@ function view:moverInvadersParaBaixo()
 	for linha=1,3 do
 		for coluna=1,10 do
 			if self:verificarInvaders(linha, coluna) then
-				view.modelJogador.tabelaInvaders[linha][coluna].y = view.modelJogador.tabelaInvaders[linha][coluna].y + 10
+				view.modelJogador.tabelaInvaders[linha][coluna].y = view.modelJogador.tabelaInvaders[linha][coluna].y + 18
 			end
 		end
 	end

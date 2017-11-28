@@ -4,6 +4,7 @@ local movimentoNaveDireita = true
 local movimentoNaveEsquerda = false
 local movimentoDireita = true
 local movimentoEsquerda = false
+local explosao = audio.loadStream("explosao.mp3")
 
 controller = {	
 	
@@ -67,10 +68,20 @@ function controller:descerInvaders()
 end
 
 function controller:invadersLimiteDireita()
-	for linha=1,3 do
-		for coluna=1,10 do
-			if self.viewJogador.modelJogador.tabelaInvaders[1][10].x ~= nil then
-				return self.viewJogador.modelJogador.tabelaInvaders[1][10].x
+	for coluna=10,1, -1 do
+		for linha=1,3 do
+			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
+				return self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x
+			end
+		end
+	end
+end
+
+function controller:invadersLimiteEsquerda()
+	for coluna=1,10 do
+		for linha=1,3 do
+			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
+				return self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x
 			end
 		end
 	end
@@ -78,13 +89,12 @@ end
 
 function controller:movimentarInaders()
 	local limiteDireita = display.contentWidth - 25
-	local invadersDireita = self.viewJogador.modelJogador.tabelaInvaders[1][10].x
 	local limiteEsquerda = 35
 	local invadersEsquerda = self.viewJogador.modelJogador.tabelaInvaders[1][1].x
 
 	if movimentoDireita == true then
 
-		if invadersDireita < limiteDireita then
+		if self:invadersLimiteDireita() < limiteDireita then
 			self:movimentarInvadersParaDireita()
 		else
 			movimentoDireita = false
@@ -95,7 +105,7 @@ function controller:movimentarInaders()
 
 	if movimentoEsquerda == true then
 
-		if invadersEsquerda >= limiteEsquerda then
+		if self:invadersLimiteEsquerda() >= limiteEsquerda then
 			self:movimentarInvadersParaEsquerda()
 		else
 			movimentoDireita = true
@@ -124,6 +134,7 @@ end
 
 function controller.desativarInvaders(event)
 	timer.performWithDelay(1, event.target:removeSelf())
+	local destruicao = audio.play( explosao )
 end
 
 function controller:destruirInvaders(linha, coluna)
@@ -133,9 +144,6 @@ end
 function controller.desativarTiro(event)
 	timer.performWithDelay(1, event.target:removeSelf())
 end
-
-
-
 
 
 return controller
