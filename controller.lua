@@ -22,7 +22,7 @@ end
 function controller:movimentaNave()
 
 	local limiteDireita = display.contentWidth - 25
-	local nave = self.viewJogador.modelJogador.imagem.x
+	local nave = self.modelJogador.imagem.x
 	local limiteEsquerda = 35
 
 	if movimentoNaveDireita == true then
@@ -162,9 +162,9 @@ function controller:verificarFinalDeJogo()
 	else
 		return false
 	end
-	if self.modelJogador.tabelaInvaders[linha][coluna].y <= self.modelJogador.imagem.y then
-		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
-	end
+	--if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].y <= self.viewJogador.modelJogador.imagem.y then
+	--	display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+	--end
 end
 
 return controller
