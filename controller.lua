@@ -70,8 +70,8 @@ end
 function controller:invadersLimiteDireita()
 	for coluna=10,1, -1 do
 		for linha=1,3 do
-			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
-				return self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x
+			if self.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
+				return self.modelJogador.tabelaInvaders[linha][coluna].x
 			end
 		end
 	end
@@ -80,8 +80,8 @@ end
 function controller:invadersLimiteEsquerda()
 	for coluna=1,10 do
 		for linha=1,3 do
-			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
-				return self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x
+			if self.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
+				return self.modelJogador.tabelaInvaders[linha][coluna].x
 			end
 		end
 	end
@@ -150,7 +150,7 @@ function controller:verificarFinalDeJogo()
 		
 	for linha=1,3 do
 		for coluna=1,10 do
-			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x == nil then
+			if self.modelJogador.tabelaInvaders[linha][coluna].x == nil then
 				contaInvaders = contaInvaders + 1
 			end
 		end
@@ -161,6 +161,9 @@ function controller:verificarFinalDeJogo()
 		return true
 	else
 		return false
+	end
+	if self.modelJogador.tabelaInvaders[linha][coluna].y <= self.modelJogador.imagem.y then
+		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
 	end
 end
 
