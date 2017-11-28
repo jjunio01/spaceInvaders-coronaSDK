@@ -90,30 +90,30 @@ end
 function controller:movimentarInaders()
 	local limiteDireita = display.contentWidth - 25
 	local limiteEsquerda = 35
-	local invadersEsquerda = self.viewJogador.modelJogador.tabelaInvaders[1][1].x
 
-	if movimentoDireita == true then
+	if self:verificarFinalDeJogo() == false then
+		if movimentoDireita == true then
 
-		if self:invadersLimiteDireita() < limiteDireita then
-			self:movimentarInvadersParaDireita()
-		else
-			movimentoDireita = false
-			movimentoEsquerda = true
-			self:descerInvaders()
+			if self:invadersLimiteDireita() < limiteDireita then
+				self:movimentarInvadersParaDireita()
+			else
+				movimentoDireita = false
+				movimentoEsquerda = true
+				self:descerInvaders()
+			end
+		end
+
+		if movimentoEsquerda == true then
+
+			if self:invadersLimiteEsquerda() >= limiteEsquerda then
+				self:movimentarInvadersParaEsquerda()
+			else
+				movimentoDireita = true
+				movimentoEsquerda = false
+				self:descerInvaders()
+			end
 		end
 	end
-
-	if movimentoEsquerda == true then
-
-		if self:invadersLimiteEsquerda() >= limiteEsquerda then
-			self:movimentarInvadersParaEsquerda()
-		else
-			movimentoDireita = true
-			movimentoEsquerda = false
-			self:descerInvaders()
-		end
-	end
-
 end
 
 function controller:atirar()
@@ -145,5 +145,23 @@ function controller.desativarTiro(event)
 	timer.performWithDelay(1, event.target:removeSelf())
 end
 
+function controller:verificarFinalDeJogo()
+	local contaInvaders = 0
+		
+	for linha=1,3 do
+		for coluna=1,10 do
+			if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].x == nil then
+				contaInvaders = contaInvaders + 1
+			end
+		end
+	end
+
+	if contaInvaders == 30 then
+		display.newText("VENCEU", display.contentCenterX, display.contentCenterY)
+		return true
+	else
+		return false
+	end
+end
 
 return controller

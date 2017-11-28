@@ -40,7 +40,7 @@ end
 local button = widget.newButton(
     {
         left = 80,
-        top = 400,
+        top = 450,
         id = "button1",
         label = "PLAY",
         shape = "rect",
@@ -53,7 +53,7 @@ local button = widget.newButton(
 local button = widget.newButton(
     {
         left = 160,
-        top = 400,
+        top = 450,
         id = "button1",
         label = "TIRO",
         shape = "rect",

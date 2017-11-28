@@ -95,7 +95,7 @@ function view:desenharNave()
 
 	self.modelJogador:renderizar()
 	self.modelJogador.imagem.x = display.contentWidth / 2
-	self.modelJogador.imagem.y = display.contentHeight  - 100
+	self.modelJogador.imagem.y = display.contentHeight  - 50
 	
 end
 
