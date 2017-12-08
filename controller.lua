@@ -87,6 +87,16 @@ function controller:invadersLimiteEsquerda()
 	end
 end
 
+function controller:invadersLimiteBaixo()
+	for coluna=1,10 do
+		for linha= 3,1, -1 do
+			if self.modelJogador.tabelaInvaders[linha][coluna].y ~= nil then
+				return self.modelJogador.tabelaInvaders[linha][coluna].y
+			end
+		end
+	end
+end
+
 function controller:movimentarInaders()
 	local limiteDireita = display.contentWidth - 25
 	local limiteEsquerda = 35
@@ -156,12 +166,18 @@ function controller:verificarFinalDeJogo()
 		end
 	end
 
+	if self:invadersLimiteBaixo() + 40 >= self.modelJogador.imagem.y then
+		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+	end
+
 	if contaInvaders == 30 then
 		display.newText("VENCEU", display.contentCenterX, display.contentCenterY)
 		return true
 	else
 		return false
 	end
+
+
 	--if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].y <= self.viewJogador.modelJogador.imagem.y then
 	--	display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
 	--end
