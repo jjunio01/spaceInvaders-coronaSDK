@@ -2,6 +2,7 @@ local model = require("nave")
 local tiros = {}
 local physics = require "physics"
 physics.start()
+local texto = display.newText("Vidas: ", 40, 10)
 
 view = {
 
@@ -49,6 +50,11 @@ function view:moverInvadersDireita()
 			end
 		end
 	end
+end
+
+function view:atualizarVidas()
+	local vidas = view.modelJogador.vidas
+	texto.text = "Vidas: " .. vidas
 end
 
 function view:moverInvadersEsquerda()

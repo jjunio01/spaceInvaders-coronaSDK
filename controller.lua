@@ -46,6 +46,7 @@ function controller:movimentaNave()
 	end
 end
 
+
 function controller:verificarLimiteInvaders(invaders)
 	
 	if invaders < limiteDireita then
@@ -151,10 +152,19 @@ function controller:movimentarParaEsquerda()
 	self.viewJogador.moverNaveEsquerda()
 end
 
-function controller.desativarInvaders(event)
-	timer.performWithDelay(1, event.target:removeSelf())
-	timer.performWithDelay(1, event.other:removeSelf())
+function controller:verificarVidaNave()
+	return self.modelJogador.vidas
 	
+end
+
+function controller.desativarInvaders(event)
+	if event.other == controller.modelJogador.imagem then
+		timer.performWithDelay(1, event.target:removeSelf())
+		controller:destruirNave()
+	else
+		timer.performWithDelay(1, event.target:removeSelf())
+		timer.performWithDelay(1, event.other:removeSelf())
+	end
 end
 
 function controller:destruirInvaders(linha, coluna)
@@ -165,8 +175,11 @@ function controller.desativarTiro(event)
 	timer.performWithDelay(1, event.target:removeSelf())
 end
 
-function controller.destruirNave()
-	self.modelJogador.imagem = nil
+function controller:destruirNave()
+	if self:verificarVidaNave() > 1 then
+		self.modelJogador.vidas = self.modelJogador.vidas - 1
+		self.viewJogador:atualizarVidas()
+	end
 end
 
 function controller:verificarFinalDeJogo()
