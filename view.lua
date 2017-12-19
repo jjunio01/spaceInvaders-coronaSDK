@@ -102,10 +102,28 @@ end
 function view:novoTiro()
 	local x = view.modelJogador.imagem.x
 	local y = view.modelJogador.imagem.y
-	table.insert(tiros,display.newRect(x,y, 5,5))	
+	table.insert(tiros,display.newRect(x,y - 20, 5,5))	
 	physics.addBody( tiros[#tiros], "dynamic")
-	physics.setGravity( 0, -6 )
+	physics.setGravity( 0, 0 )
+	tiros[#tiros]:setLinearVelocity( 0, -115 )
 	tiros[#tiros]:addEventListener( "collision", controller.desativarTiro )
+end
+function view:novoTiroInvaders(invaders)
+	local x = invaders.x
+	local y = invaders.y
+	table.insert(tiros,display.newRect(x,y + 20, 5,5))
+	physics.addBody( tiros[#tiros], "dynamic")
+	tiros[#tiros]:addEventListener( "collision", controller.desativarInvaders)
+	tiros[#tiros]:setLinearVelocity( 0, 115 )
+end
+
+function view:moverTiro(invaders)
+	local function mudarPosicao()
+		if invaders.y ~= nil then
+			invaders.y = invaders.y + 35
+		end
+	end
+	timer.performWithDelay( 500, mudarPosicao,0)
 end
 
 return view

@@ -127,8 +127,17 @@ function controller:movimentarInaders()
 end
 
 function controller:atirar()
-	self.viewJogador:novoTiro()
-	
+	self.viewJogador:novoTiro()	
+end
+
+function controller:tiroInvaders()
+	local coluna = math.random(1,10)
+	for linha=3,1, -1 do
+		if self.modelJogador.tabelaInvaders[linha][coluna].x ~= nil then
+			self.viewJogador:novoTiroInvaders(self.modelJogador.tabelaInvaders[linha][coluna])
+			break
+		end
+	end
 end
 
 function controller:movimentarParaDireita()
@@ -144,7 +153,8 @@ end
 
 function controller.desativarInvaders(event)
 	timer.performWithDelay(1, event.target:removeSelf())
-	local destruicao = audio.play( explosao )
+	timer.performWithDelay(1, event.other:removeSelf())
+	
 end
 
 function controller:destruirInvaders(linha, coluna)
@@ -153,6 +163,10 @@ end
 
 function controller.desativarTiro(event)
 	timer.performWithDelay(1, event.target:removeSelf())
+end
+
+function controller.destruirNave()
+	self.modelJogador.imagem = nil
 end
 
 function controller:verificarFinalDeJogo()
@@ -166,10 +180,11 @@ function controller:verificarFinalDeJogo()
 		end
 	end
 
-	if self:invadersLimiteBaixo() + 40 >= self.modelJogador.imagem.y then
-		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+	if contaInvaders ~= 30 then
+		if self:invadersLimiteBaixo() + 40 >= self.modelJogador.imagem.y then
+			display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+		end
 	end
-
 	if contaInvaders == 30 then
 		display.newText("VENCEU", display.contentCenterX, display.contentCenterY)
 		return true
@@ -177,10 +192,6 @@ function controller:verificarFinalDeJogo()
 		return false
 	end
 
-
-	--if self.viewJogador.modelJogador.tabelaInvaders[linha][coluna].y <= self.viewJogador.modelJogador.imagem.y then
-	--	display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
-	--end
 end
 
 return controller

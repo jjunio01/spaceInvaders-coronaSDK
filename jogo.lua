@@ -23,6 +23,7 @@ function timeMovimentacao(event)
 
 	if event.phase == "began" then
 		timer.performWithDelay( 500, movimentarNave,0)
+		timer.performWithDelay( 1500, atirarInvaders,0)
 	end
 end
 
@@ -36,6 +37,11 @@ function movimentarNave()
 	jogo.controllerJogador:movimentaNave()
 	jogo.controllerJogador:movimentarInaders()
 end	
+
+function atirarInvaders()
+	jogo.controllerJogador:tiroInvaders()
+end
+
 
 local button = widget.newButton(
     {

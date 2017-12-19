@@ -10,6 +10,8 @@ function nave:renderizar()
 	
 	self.imagem.width= 20
 	self.imagem.height = 20
+	physics.addBody(self.imagem, "static")
+	physics.setGravity( 0, 0 )
 
 end
 
