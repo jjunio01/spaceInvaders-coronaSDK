@@ -94,6 +94,7 @@ function controller:invadersLimiteBaixo()
 			if self.modelJogador.tabelaInvaders[linha][coluna].y ~= nil then
 				return self.modelJogador.tabelaInvaders[linha][coluna].y
 			end
+			break
 		end
 	end
 end
