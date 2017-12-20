@@ -5,8 +5,8 @@
 -----------------------------------------------------------------------------------------
 
 -- Your code here
-
-local jogo = require("jogo")
 local widget = require("widget")
-    
+local jogo = require("jogo")
+
 jogo:play()
+

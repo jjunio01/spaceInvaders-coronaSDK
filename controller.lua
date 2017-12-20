@@ -192,18 +192,18 @@ function controller:verificarFinalDeJogo()
 	end
 
 	if self:verificarVidaNave() == 0 then
-		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+		display.newText("PERDEU", display.contentCenterX, display.contentCenterY - 180)
 		return true
 	end
 
 	if contaInvaders ~= 30 then
 		if self:invadersLimiteBaixo() + 40 >= self.modelJogador.imagem.y then
-			display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+			display.newText("PERDEU", display.contentCenterX, display.contentCenterY - 180)
 			return true
 		end
 	end
 	if contaInvaders == 30 then
-		display.newText("VENCEU", display.contentCenterX, display.contentCenterY)
+		display.newText("VENCEU", display.contentCenterX, display.contentCenterY - 180)
 
 		return true
 	else

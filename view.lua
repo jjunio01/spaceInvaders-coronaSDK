@@ -121,7 +121,7 @@ end
 function view:novoTiroInvaders(invaders)
 	local x = invaders.x
 	local y = invaders.y
-	table.insert(tiros,display.newRect(x,y + 22, 5,5))
+	table.insert(tiros,display.newRect(x,y + 30, 5,5))
 	physics.addBody( tiros[#tiros], "dynamic")
 	tiros[#tiros]:addEventListener( "collision", controller.desativarInvaders)
 	tiros[#tiros]:setLinearVelocity( 0, 115 )
