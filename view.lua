@@ -30,15 +30,19 @@ function view:verificarInvaders(linha, coluna)
 end
 
 function view.moverNaveDireita()
-	
-	view.modelJogador.imagem.x = view.modelJogador.imagem.x + 10
 
+	local posicaoAtual = view.modelJogador.imagem.x
+	if posicaoAtual < display.contentWidth - 30 then
+		view.modelJogador.imagem.x = view.modelJogador.imagem.x + 10
+	end
 end
 
 function view.moverNaveEsquerda()
-	
-	view.modelJogador.imagem.x = view.modelJogador.imagem.x - 10
 
+	local posicaoAtual = view.modelJogador.imagem.x
+	if posicaoAtual > 30 then
+		view.modelJogador.imagem.x = view.modelJogador.imagem.x - 10
+	end
 end
 
 function view:moverInvadersDireita()

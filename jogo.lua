@@ -15,16 +15,18 @@ function jogo:play()
 	self.viewJogador = view
 	self.modelJogador = model
 	self.controllerJogador = controller
-	self.controllerJogador:play()
+	self.controllerJogador:play()	
+	self:mostrarNumeroDeVidas()
+	timeMovimentacao()
+	timeTiroInvaders()
 end
 
+function timeTiroInvaders()
+	invaders = timer.performWithDelay( 1000, atirarInvaders,0)
+end
 
 function timeMovimentacao(event)
-
-	--if event.phase == "began" then
-		timer.performWithDelay( 500, movimentarInvaders,0)
-		timer.performWithDelay( 1500, atirarInvaders,0)
-	--end
+	timer.performWithDelay( 500, movimentarInvaders,0)
 end
 
 function novoTiro()
@@ -34,13 +36,12 @@ end
 function atirar(event)
 	if event.phase == "began" then
 		timer.performWithDelay( 500, novoTiro)
-		--jogo.controllerJogador:atirar()
 	end
 end
 
 function movimentarInvaders()
-	--jogo.controllerJogador:movimentaNave()
 	jogo.controllerJogador:movimentarInaders()
+	jogo:verificaTermino()
 end	
 
 function atirarInvaders()
@@ -55,47 +56,43 @@ function jogo:mostrarNumeroDeVidas()
 	self.viewJogador:atualizarVidas()
 end
 
-function movimentarEsquerda(event)
+function movimentarNaveEsquerda(event)
 	if event.phase == "began" then
 		jogo.controllerJogador:movimentarParaEsquerda()
 	end
 end
 
-function movimentarDireita(event)
+function movimentarNaveDireita(event)
 	if event.phase == "began" then
 		jogo.controllerJogador:movimentarParaDireita()
 	end
 end
 
-jogo:mostrarNumeroDeVidas()
-
-local button = widget.newButton(
+local buttonE = widget.newButton(
     {
         left = 15,
         top = 450,
         id = "button1",
         label = "E",
         shape = "rect",
-        onEvent = movimentarEsquerda,
+        onEvent = movimentarNaveEsquerda,
      	width = 60,
 		height = 60
 })
 
-local button = widget.newButton(
+local buttonD = widget.newButton(
     {
         left = 80,
         top = 450,
         id = "button1",
         label = "D",
         shape = "rect",
-        onEvent = movimentarDireita,
+        onEvent = movimentarNaveDireita,
      	width = 60,
 		height = 60
 })
 
-timeMovimentacao()
-
-local button = widget.newButton(
+local buttonT = widget.newButton(
     {
         left = 250,
         top = 450,
@@ -106,5 +103,14 @@ local button = widget.newButton(
      	width = 60,
 		height = 60
 })
+
+function jogo:verificaTermino()
+	if self.controllerJogador:verificarFinalDeJogo() == true then
+		buttonT:setEnabled(false)
+		buttonE:setEnabled(false)
+		buttonD:setEnabled(false)
+		timer.cancel(invaders)
+	end
+end
 
 return jogo

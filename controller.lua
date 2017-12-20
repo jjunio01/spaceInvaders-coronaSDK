@@ -9,7 +9,7 @@ local explosao = audio.loadStream("explosao.mp3")
 controller = {	
 	
 	viewJogador = view,
-	modelJogador = model
+	modelJogador = model,
 
 }
 
@@ -164,11 +164,8 @@ function controller.desativarInvaders(event)
 	else
 		timer.performWithDelay(1, event.target:removeSelf())
 		timer.performWithDelay(1, event.other:removeSelf())
+		local destruicao = audio.play( explosao )
 	end
-end
-
-function controller:destruirInvaders(linha, coluna)
-	
 end
 
 function controller.desativarTiro(event)
@@ -176,8 +173,9 @@ function controller.desativarTiro(event)
 end
 
 function controller:destruirNave()
-	if self:verificarVidaNave() > 1 then
+	if self:verificarVidaNave() > 0 then
 		self.modelJogador.vidas = self.modelJogador.vidas - 1
+		local destruicao = audio.play(explosao)
 		self.viewJogador:atualizarVidas()
 	end
 end
@@ -193,13 +191,20 @@ function controller:verificarFinalDeJogo()
 		end
 	end
 
+	if self:verificarVidaNave() == 0 then
+		display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+		return true
+	end
+
 	if contaInvaders ~= 30 then
 		if self:invadersLimiteBaixo() + 40 >= self.modelJogador.imagem.y then
 			display.newText("PERDEU", display.contentCenterX, display.contentCenterY)
+			return true
 		end
 	end
 	if contaInvaders == 30 then
 		display.newText("VENCEU", display.contentCenterX, display.contentCenterY)
+
 		return true
 	else
 		return false
